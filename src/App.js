@@ -48,7 +48,8 @@ class App extends Component{
           </>
           :
           //login page
-          <Stack.Screen name="AuthScreen"
+          <Stack.Screen options={{headerShown: false}}
+          name="AuthScreen"
             Component={AuthScreen}
             />
           }

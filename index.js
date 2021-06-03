@@ -11,6 +11,7 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import promiseMiddleware from 'redux-promise';
 import reducers from './src/store/reducers';
 import {DarkTheme,Provider as PaperProvider} from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const createStoreWithMiddleware = createStore(reducers, composeEnhancers(applyMiddleware(promiseMiddleware)))
@@ -19,6 +20,7 @@ const reduxApp = () =>{
     <Provider store={createStoreWithMiddleware}>
         <PaperProvider theme ={DarkTheme}>
              <App/>
+             <Toast ref ={(ref)=> Toast.setRef(ref)}/>  
         </PaperProvider>
     </Provider>
 }
