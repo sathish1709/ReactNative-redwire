@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useDispatch, useSelector} from 'react-redux';
+import {loginUser, registerUser, clearAuthError} from '../../store/actions';
+import {useFocusEffect} from '@react-navigation/native'
 
 import { Input, Button} from 'react-native-elements';
 import {LogoText, Colors, ShowToast} from '../../utils/tools';
@@ -12,14 +14,37 @@ import Toast from 'react-native-toast-message';
 
 const AuthScreen = ()=>{
 
+    const dispatch = useDispatch();
+    const error = useSelector(state=>state.auth.error)
+
     const [secureEntry, setSecureEntry] = useState(true)
     const [formType, setFormType ] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-      // ShowToast('sucess','sorry','error message')
-    }, [])
+        if(error){
+            ShowToast('sucess','sorry', error);
+            setLoading(false)
+        }
+    }, [error])
+
+    useFocusEffect(
+        useCallback(()=>{
+            return () => dispatch(clearAuthError())
+        },[])
+    )
+
     
     const handleSubmit = (values) =>{
+        setLoading(true)
+        if(formType){
+            //register
+            dispatch(registerUser(values))
+          
+        }else{
+            //login
+            dispatch(loginUser(values))
+        }
         alert(values)
     }
 
@@ -70,14 +95,15 @@ const AuthScreen = ()=>{
                                 value = {values.password}
                         />
                         
-                        <Button type ="clear"
-                            title={formType ? 'Regsitered' :'Login'}
+                        <Button 
+                            title={formType ? 'Registered' :'Login'}
                             buttonStyle={{
                                 backgroundColor: Colors.black,
                                 marginTop: 20
                             }}
                             titleStyle={{width: '100%'}}
                             onPress={handleSubmit}
+                            loading={loading}
                             />
 
                         <Button type ="clear"
