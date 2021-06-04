@@ -5,7 +5,7 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUser, registerUser, clearAuthError} from '../../store/actions';
-import {useFocusEffect} from '@react-navigation/native'
+import {useFocusEffect} from '@react-navigation/native';
 
 import { Input, Button} from 'react-native-elements';
 import {LogoText, Colors, ShowToast} from '../../utils/tools';
