@@ -13,7 +13,9 @@ import SideDrawerCustom from './utils/customDrawer';
 import Colors from './utils/tools';
 
 import {Stack, HomeStack, VideosStack, ScreenOptions} from './routes/stacks';
+import Splash from './components/auth/splash';
 import VideoScreen from './components/home/videos/video';
+import { autoSignIn } from './store/api';
 
 const Drawer = createDrawerNavigator();
 
@@ -31,6 +33,17 @@ const MainDrawer = () =>{
 
 class App extends Component{
 
+  state ={
+    loading: true
+  }
+
+  componentDidMount(){
+    this.props.dispatch(autoSignIn()).then(()=>{
+      this.setState({loading:false})
+    })
+
+  }
+
   render(){
     return (
       <NavigationContainer>
@@ -47,12 +60,21 @@ class App extends Component{
           options={{...ScreenOptions, headerBackTitleVisible: false}}></Stack.Screen>
           </>
           :
+          (
+            this.state.loading ?
+            <Stack.Screen options={{headerShown: false}}
+            name="Splash"
+            Component={Splash}
+            />
+            :
           //login page
           <Stack.Screen options={{headerShown: false}}
           name="AuthScreen"
             Component={AuthScreen}
             />
+          )
           }
+          
         </Stack.Navigator>
 
       </NavigationContainer>
