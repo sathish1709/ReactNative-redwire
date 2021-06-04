@@ -11,7 +11,9 @@ export default function(state=INITIAL_STATE, action){
         case 'LOGOUT_USER':
             return {...state, user:[],isAuth:false}
         case 'CLEAR_AUTH_ERROR':
-                return {...state, error: null}
+            return {...state, error: null}
+        case 'UPDATE_USER_DATA':
+            return {...state, ...action.payload}
         default:
             return state
     }

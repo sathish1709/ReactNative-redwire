@@ -26,3 +26,9 @@ export const logoutUser = () =>({
     type: 'LOGOUT_USER',
     payload: api.logoutUser()
 })
+
+export const updateUserData = (values, user) =>({
+    type: 'UPDATE_USER_DATA',
+    payload: api.updateUserData(values, user)
+})
+ 
