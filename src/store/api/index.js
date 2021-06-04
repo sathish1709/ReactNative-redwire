@@ -1,4 +1,4 @@
-import {firebase, usersCollection} from  '../../firebase';
+import {firebase, usersCollection, articlesCollection} from  '../../firebase';
 
 export const registerUser = async({email, password}) =>{
     try{
@@ -80,5 +80,52 @@ export const updateUserData= async(values, user) =>{
         return {user: newUser, error: null}
     }catch(error){
         return {user: user, error: error}
+    }
+}
+
+export const getArticles= async() =>{
+    try{
+        const response = await articlesCollection
+                        .where('public','==',1)
+                        .orderBy('createdAt')
+                        .limit(4)
+                        .get();
+
+        const lastPostVisible = response.docs[response.docs.length-1]
+        const articles = response.docs.map(doc =>({
+            id: doc.id,...doc.data()
+        }))
+        
+        return {posts: articles, lastPostVisible:lastPostVisible }
+    }catch(error){
+        console.log(error)
+        return error;
+    }
+}
+
+
+export const getMoreArticles= async() =>{
+
+    let posts =[...articles.posts];
+    let lastPostVisible = articles.lastPostVisible;
+    try{
+        if(lastPostVisible){
+            const response = await articlesCollection
+                        .where('public','==',1)
+                        .orderBy('createdAt')
+                        .startAfter(lastPostVisible)
+                        .limit(2)
+                        .get(); 
+            
+            const lastPostVisible = response.docs[response.docs.length-1];
+            const newArticles = response.docs.map(doc =>({
+                id: doc.id,...doc.data()
+            }))
+            return {posts: [...articles.posts,...newArticles], lastPostVisible}
+        }
+        return {posts, lastPostVisible};
+    }catch(error){
+        alert(error)
+        return {posts, lastPostVisible};
     }
 }

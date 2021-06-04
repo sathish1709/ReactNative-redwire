@@ -32,3 +32,14 @@ export const updateUserData = (values, user) =>({
     payload: api.updateUserData(values, user)
 })
  
+
+//articles
+export const getArticles = ()=>({
+    type:'GET_ARTICLES',
+    payload: api.getArticles()
+})
+
+export const getMoreArticles = (articles)=>({
+    type:'GET_ARTICLES',
+    payload: api.getMoreArticles(articles)
+})

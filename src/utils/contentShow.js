@@ -1,9 +1,9 @@
 import React from 'react';
 import {View,Text, StyleSheet, ScrollView} from 'react-native';
 
-const ContentShow = () =>{
+const ContentShow = ({params}) =>{
 
-    const text =`<p>Showing the content of the artist from content show
+    /* const text =`<p>Showing the content of the artist from content show
     Showing the content of the artist from content show
     Showing the content of the artist from content show
     Showing the content of the artist from content show
@@ -18,16 +18,16 @@ const ContentShow = () =>{
     Showing the content of the artist from content show
     Showing the content of the artist from content show
     Showing the content of the artist from content show
-    Showing the content of the artist from content show</p>`;
+    Showing the content of the artist from content show</p>`; */
 
     return (
         <View>
             <View style = {{padding:10}}>
                 <Text style ={styles.articleTitle}>
-                    Showing the title of the artist from content show
+                    {params.postData.title}
                 </Text>
                 <Text style ={styles.articleContent}>
-                        {text.replace(/<p>/g, "").replace(/<\/p>/g,"\n\n")}
+                        {params.postData.content.replace(/<p>/g, "").replace(/<\/p>/g,"\n\n")}
                 </Text>
             </View>
         </View>

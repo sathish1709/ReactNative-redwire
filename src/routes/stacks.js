@@ -42,7 +42,8 @@ export const VideosStack = () =>{
 
 export const HomeStack = () =>{
     <Stack.Navigator screenOptions ={{
-                                     ...ScreenOptions}} 
+                                     ...ScreenOptions,
+                                     headerBackTitleVisible: false}} 
                      initialRouteName ="Home_screen">
         <Stack.Screen name="Home_screen" component={HomeScreen} options ={{headerLeft:(props)=><LeftIcon/>}}></Stack.Screen>
         <Stack.Screen name="Article_screen" component={ArticleScreen}></Stack.Screen>
