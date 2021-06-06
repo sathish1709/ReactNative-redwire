@@ -4,7 +4,7 @@ import 'firebase/auth';
 
 const config ={
 
-        apiKey: "AIzaSyDRC4XehzTlZSDCODMLsfXPTOSUgxgu0Rg",
+        apiKey: "AIzaSyDRC4XehzTlZSDCODdfghMLsfXPTOSUgxgu0Rg",
         authDomain: "redwire-619bc.firebaseapp.com",
         projectId: "redwire-619bc",
         storageBucket: "redwire-619bc.appspot.com",
